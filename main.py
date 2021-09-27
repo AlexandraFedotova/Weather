@@ -26,12 +26,12 @@ def get_weather():
     humidity = []
     pressure = []
 
+    url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
+    api_key = open("api_key.txt", "r").read()
+    params = {'lat': latitude, 'lon': longitude, 'dt': 0, 'appid': api_key, 'units': 'metric'}
     for i in range(days):
         date = end_date - datetime.timedelta(days=i)
-        url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
-        api_key = open("api_key.txt", "r").read()
-        params = {'lat': latitude, 'lon': longitude, 'dt': int(date.timestamp()),
-                  'appid': api_key, 'units': 'metric'}
+        params['dt'] = int(date.timestamp())
         response = requests.get(url=url, params=params)
         result = response.json()
         temperature.append(result['current']['temp'])
