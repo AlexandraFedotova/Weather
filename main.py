@@ -67,9 +67,11 @@ def get_weather():
                   "max": float(pres['max'])
               }
               }
+    print(answer)
 
     return jsonify(answer)
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
