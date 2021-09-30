@@ -1,10 +1,12 @@
 import datetime
 import numpy
 import requests
+import os
 
 from flask import Flask, jsonify, request
 from geopy.geocoders import Nominatim
 
+api_key = os.environ.get('API_KEY')
 app = Flask(__name__)
 
 
@@ -27,7 +29,6 @@ def get_weather():
     pressure = []
 
     url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
-    api_key = open("api_key.txt", "r").read()
     params = {'lat': latitude, 'lon': longitude, 'dt': 0, 'appid': api_key, 'units': 'metric'}
     for i in range(days):
         date = end_date - datetime.timedelta(days=i)
