@@ -14,17 +14,22 @@
 <h2> Docker </h2>
   <p> Для построения Docker image </p>
   <p>    
+    
     docker built -t weather '[full path to Dockerfile]'
     
     docker run -p 8080:5000 --name weather --env-file=.env weather 
   </p>
   <p> Или Вы можете скачать Docker image </p>
+  <p>
+    
     docker pull alexandrafedotova/weather 
     
     docker run -p 8080:5000 --name weather --env-file=.env alexandrafedotova/weather
   </p>
   <p>
-    Сервис работает на: localhost:8080
+    Сервис работает на: 
+    
+    localhost:8080
   </p>
   
  
