@@ -1,11 +1,10 @@
 import datetime
-import os
 import numpy
 import requests
 
 from flask import Flask, jsonify, request
+from geopy.geocoders import Nominatim
 
-api_key = os.environ.get('API_KEY')
 app = Flask(__name__)
 
 
@@ -18,21 +17,26 @@ def get_weather():
     end_date = datetime.datetime.now()
     start_date = end_date - datetime.timedelta(days=days)
 
+    locator = Nominatim(user_agent="my_request")
+    location = locator.geocode(city)
+    longitude = location.longitude
+    latitude = location.latitude
+
     temperature = []
     humidity = []
     pressure = []
 
-    url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
-    url += city + '/' + start_date.strftime('%Y-%m-%d') + '/' + end_date.strftime('%Y-%m-%d')
-    params = {'key': api_key, 'unitGroup': 'metric', 'elements': 'temp,humidity,pressure'}
-    response = requests.get(url=url, params=params)
-    print(response.status_code)
-    result = response.json()
-    days = result['days']
-    for day in days:
-        temperature.append(day['temp'])
-        humidity.append(day['humidity'])
-        pressure.append(day['pressure'])
+    for i in range(days):
+        date = end_date - datetime.timedelta(days=i)
+        url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
+        api_key = open("api_key.txt", "r").read()
+        params = {'lat': latitude, 'lon': longitude, 'dt': int(date.timestamp()),
+                  'appid': api_key, 'units': 'metric'}
+        response = requests.get(url=url, params=params)
+        result = response.json()
+        temperature.append(result['current']['temp'])
+        humidity.append(result['current']['humidity'])
+        pressure.append(result['current']['pressure'])
 
     temp = {'average': numpy.mean(temperature), 'median': numpy.median(temperature), 'min': numpy.min(temperature),
             'max': numpy.max(temperature)}
@@ -68,4 +72,4 @@ def get_weather():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
