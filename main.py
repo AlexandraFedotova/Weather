@@ -1,42 +1,37 @@
 import datetime
 import numpy
 import requests
+import os
 
 from flask import Flask, jsonify, request
-from geopy.geocoders import Nominatim
 
 app = Flask(__name__)
+api_key = os.environ.get('API_KEY')
 
 
 @app.route("/weather", methods=['GET'])
 def get_weather():
     app.config['JSON_SORT_KEYS'] = False
     city = request.args.get('city')
-    days = int(request.args.get('days'))
+    n = int(request.args.get('days'))
 
     end_date = datetime.datetime.now()
-    start_date = end_date - datetime.timedelta(days=days)
-
-    locator = Nominatim(user_agent="my_request")
-    location = locator.geocode(city)
-    longitude = location.longitude
-    latitude = location.latitude
+    start_date = end_date - datetime.timedelta(days=n)
 
     temperature = []
     humidity = []
     pressure = []
 
-    for i in range(days):
-        date = end_date - datetime.timedelta(days=i)
-        url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
-        api_key = open("api_key.txt", "r").read()
-        params = {'lat': latitude, 'lon': longitude, 'dt': int(date.timestamp()),
-                  'appid': api_key, 'units': 'metric'}
-        response = requests.get(url=url, params=params)
-        result = response.json()
-        temperature.append(result['current']['temp'])
-        humidity.append(result['current']['humidity'])
-        pressure.append(result['current']['pressure'])
+    url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
+    url += city + '/' + start_date.strftime('%Y-%m-%d') + '/' + end_date.strftime('%Y-%m-%d')
+    params = {'key': api_key, 'unitGroup': 'metric', 'elements': 'temp,humidity,pressure', 'include': 'days'}
+    response = requests.get(url=url, params=params)
+    result = response.json()
+    days = result['days']
+    for day in days:
+        temperature.append(day['temp'])
+        humidity.append(day['humidity'])
+        pressure.append(day['pressure'])
 
     temp = {'average': numpy.mean(temperature), 'median': numpy.median(temperature), 'min': numpy.min(temperature),
             'max': numpy.max(temperature)}
@@ -67,9 +62,8 @@ def get_weather():
                   "max": float(pres['max'])
               }
               }
-
     return jsonify(answer)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
