@@ -29,7 +29,7 @@ def get_weather():
     try:
         result = response.json()
     except ValueError:
-        return {'staus_code': response.status_code, 'url': url, 'params': params)
+        return {'staus_code': response.status_code, 'url': url, 'params': params}
 
     days = result['days']
     for day in days:
