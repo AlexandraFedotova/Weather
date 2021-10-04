@@ -24,8 +24,11 @@ def get_weather():
 
     url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
     url += city + '/' + start_date.strftime('%Y-%m-%d') + '/' + end_date.strftime('%Y-%m-%d')
+    print('url', url)
     params = {'key': api_key, 'unitGroup': 'metric', 'elements': 'temp,humidity,pressure', 'include': 'days'}
+    print('params', params)
     response = requests.get(url=url, params=params)
+    print('status_code', response.status_code)
     result = response.json()
     days = result['days']
     for day in days:
