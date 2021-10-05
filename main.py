@@ -9,6 +9,12 @@ app = Flask(__name__)
 api_key = os.environ.get('API_KEY')
 
 
+@app.route("/")
+def welcome():
+    welcome_page = "<p> The right form of request to the service: /weather?city=&ltcity>&days=&ltn>"
+    return welcome_page
+
+
 @app.route("/weather", methods=['GET'])
 def get_weather():
     app.config['JSON_SORT_KEYS'] = False
