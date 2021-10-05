@@ -26,10 +26,11 @@ def get_weather():
     url += city + '/' + start_date.strftime('%Y-%m-%d') + '/' + end_date.strftime('%Y-%m-%d')
     params = {'key': api_key, 'unitGroup': 'metric', 'elements': 'temp,humidity,pressure', 'include': 'days'}
     response = requests.get(url=url, params=params)
+
     try:
         result = response.json()
     except ValueError:
-        return {'staus_code': response.status_code, 'url': url, 'params': params}
+        return {'status_code': response.status_code, 'message': 'Problem getting Json data from response'}
 
     days = result['days']
     for day in days:
