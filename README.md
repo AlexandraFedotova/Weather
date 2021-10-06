@@ -1,8 +1,9 @@
-<h1>Weather </h1>
+<h1>Описание</h1>
 
-<p> Веб-сервис получает данные о погоде из публичного API и производит их агрегацию, после чего возвращает результат в следующем формате: 
+Веб-сервис получает данные о погоде из публичного API и производит их агрегацию, после чего возвращает результат в следующем формате: 
 
-{
+<pre>
+{ 
  "city": "Saint-Petersburg",
  "from": "2021-09-10",
  "to": "2021-09-15",
@@ -25,33 +26,42 @@
    "max": 1017.3
  }
 }
-</p>
+</pre></p>
 
 <h2>Установление зависимостей </h2>
 
-<p> pip install -r requirements.txt </p>
+<p>
+Для установления зависимостей выполните следующую комманду
+<pre> pip install -r requirements.txt </pre>
+Также, необходимо получить api-key на <a href="https://www.visualcrossing.com/">visualcrossing.com</a>
+Ключ вставляется в файл .env вместо "Your_api_key"
 
-<p> Необходимо получить api_key - api.openweathermap </p>
+</p>
 
-<p> Корректный формат запроса к сервису: GET /weather?city=<city>&days=<n>. Например, GET /weather?city=Saint-Petersburg&days=4 </p> 
+<h2>Использование</h2> 
+
+<p>
+Корректный формат запроса к сервису: <pre>GET /weather?city=&ltcity>&days=&ltn></pre>
+Например, GET /weather?city=Saint-Petersburg&days=4 
+
+Для запуска приложения из консоли:
+<pre>cd Weather
+run flask </pre>
+
+</p> 
 
 <h2> Docker </h2>
-  <p> Для построения Docker image </p>
-  <p>    
-    
+  <p> Для построения Docker image
+ 
     docker built -t weather '[full path to Dockerfile]'
     docker run -p 8080:5000 --name weather --env-file=.env weather 
-  </p>
-  <p> Или Вы можете скачать Docker image </p>
-  <p>
-    
+
+  Или Вы можете скачать Docker image: 
+  
     docker pull alexandrafedotova/weather 
     docker run -p 8080:5000 --name weather --env-file=.env alexandrafedotova/weather
-  </p>
-  <p>
-    Сервис работает на: 
-    
-    localhost:8080
+
+  Сервис работает на: localhost:8080
   </p>
   
  
