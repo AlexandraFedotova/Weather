@@ -5,8 +5,8 @@
 <pre>
 { 
  "city": "Saint-Petersburg",
- "from": "2021-09-10",
- "to": "2021-09-15",
+ "from": "2021-10-07",
+ "to": "2021-10-03",
  "temperature_c": {
    "average": 25.0,
    "median": 24.5,
