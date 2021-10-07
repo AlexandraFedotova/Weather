@@ -36,7 +36,7 @@ def get_weather():
     try:
         result = response.json()
     except ValueError:
-        return {'status_code': response.status_code, 'message': 'Problem getting Json data from response'}
+        return {'status_code': response.status_code, 'message': 'Problem getting Json data from response. Check your Ethernet connection and Api-key'}
 
     days = result['days']
     for day in days:
