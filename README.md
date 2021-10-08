@@ -35,7 +35,6 @@
 <pre> pip install -r requirements.txt </pre>
 Также, необходимо получить api-key на <a href="https://www.visualcrossing.com/">visualcrossing.com</a>
 Ключ вставляется в файл .env вместо "Your_api_key"
-
 </p>
 
 <h2>Использование</h2> 
