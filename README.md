@@ -44,8 +44,9 @@
 Например, GET /weather?city=Saint-Petersburg&days=4 
 
 Для запуска приложения из консоли:
-<pre>cd Weather
-run flask </pre>
+
+  cd Weather
+  run flask
 
 </p> 
 
