@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Get code') {
-            steps {
-                // Get some code from a GitHub repository
-                // git 'https://github.com/AlexandraFedotova/Weather'
-                bat 'dir'
-            }
-        }
         stage('Make image and push it') {
             environment {
                 DockerUser = credentials('DockerUser')
