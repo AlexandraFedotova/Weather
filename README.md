@@ -45,8 +45,8 @@
 
 Для запуска приложения из консоли:
 
-  cd Weather
-  run flask
+<pre>cd Weather
+run flask</pre>
 
 </p> 
 
