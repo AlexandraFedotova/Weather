@@ -53,7 +53,7 @@
 <h2> Docker </h2>
   <p> Для построения Docker image
  
-    docker built -t weather '[full path to Dockerfile]'
+    docker build -t weather '[full path to Dockerfile]'
     docker run -p 8080:5000 --name weather --env-file=.env weather 
 
   Или Вы можете скачать Docker image: 
