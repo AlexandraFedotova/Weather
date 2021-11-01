@@ -6,7 +6,7 @@ import os
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
-api_key = os.environ.get('api-key')
+api_key = os.environ.get('API_KEY')
 
 
 @app.route("/")
