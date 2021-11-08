@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Make image and push it) {
+        stage('Make image and push it') {
             environment {
                 DockerUser = credentials('DockerUser')
             }
