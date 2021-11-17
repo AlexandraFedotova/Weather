@@ -28,21 +28,23 @@ def get_weather():
     humidity = []
     pressure = []
 
-    url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
-    url += city + '/' + start_date.strftime('%Y-%m-%d') + '/' + end_date.strftime('%Y-%m-%d')
-    params = {'key': api_key, 'unitGroup': 'metric', 'elements': 'temp,humidity,pressure', 'include': 'days'}
-    response = requests.get(url=url, params=params)
+    url = 'http://api.weatherapi.com/v1/history.json'
+    params = {'key': api_key, 'q': city, 'dt': 0}
 
-    try:
-        result = response.json()
-    except ValueError:
-        return {'status_code': response.status_code, 'message': 'Problem getting Json data from response'}
+    for i in range(n):
+        params['dt'] = (end_date - datetime.timedelta(days=i)).strftime('%Y-%m-%d')
+        response = requests.get(url=url, params=params)
 
-    days = result['days']
-    for day in days:
-        temperature.append(day['temp'])
-        humidity.append(day['humidity'])
-        pressure.append(day['pressure'])
+        if response.status_code == 200:
+            result = response.json()
+        else:
+            return {'status_code': response.status_code, 'message': 'Problem getting Json data from response. '}
+
+        data = result['forecast']['forecastday'][0]
+
+        temperature.append(data['day']['avgtemp_c'])
+        humidity.append(data['day']['avghumidity'])
+        pressure.append(data['hour'][11]['pressure_mb'])
 
     temp = {'average': numpy.mean(temperature), 'median': numpy.median(temperature), 'min': numpy.min(temperature),
             'max': numpy.max(temperature)}
