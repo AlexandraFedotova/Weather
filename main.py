@@ -53,7 +53,9 @@ def get_weather():
     pres = {'average': numpy.mean(pressure), 'median': numpy.median(pressure), 'min': numpy.min(pressure),
             'max': numpy.max(pressure)}
 
-    answer = {"city": city,
+    answer = {
+              "devOpsSchool": "done",  
+              "city": city,
               "from": start_date.strftime("%Y-%m-%d"),
               "to": end_date.strftime("%Y-%m-%d"),
               "temperature_c": {
