@@ -61,6 +61,6 @@ run flask</pre>
     docker pull alexandrafedotova/weather:tag
     docker run -p 80:5000 --name weather -e <API_KEY> alexandrafedotova/weather:tag
 
-  Сервис работает на: localhost:80
-  Если tag не указан - будет использоваться образ с тэгом latest.
+ Сервис работает на: localhost:80 
+ Если tag не указан - будет использоваться образ с тэгом latest.
   </p>
