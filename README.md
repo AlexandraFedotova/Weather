@@ -63,3 +63,5 @@ run flask</pre>
 
   Сервис работает на: localhost:8080
   </p>
+  
+  <h2>Jenkins</h2> 
