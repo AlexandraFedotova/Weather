@@ -18,7 +18,7 @@ pipeline {
         stage('Set image in kube-deployment') {
             steps {
                 withKubeConfig([credentialsId: 'kubernetes_config', serverUrl: 'https://94.26.239.170:6443']) {
-                    sh 'kubectl set image deployment/test-deploy test=alexandrafedotova/weather:1.$BUILD_NUMBER$ --record'
+                    sh 'kubectl set image deployment/test-deploy test=alexandrafedotova/weather:1.$BUILD_NUMBER --record'
                 }
             }
         }
