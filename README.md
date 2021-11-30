@@ -33,7 +33,7 @@
 <p>
 Для установления зависимостей выполните следующую комманду
 <pre> pip install -r requirements.txt </pre>
-Также, необходимо получить api-key на <a href="https://www.visualcrossing.com/">visualcrossing.com</a>
+Также, необходимо получить api-key на <a href="https://www.weatherapi.com/">weatherapi.com</a>
 Ключ вставляется в файл .env вместо "Your_api_key"
 </p>
 
@@ -53,15 +53,14 @@ run flask</pre>
 <h2> Docker </h2>
   <p> Для построения Docker image
  
-    docker build -t weather '[full path to Dockerfile]'
-    docker run -p 8080:5000 --name weather --env-file=.env weather 
+    docker build -t weather:tag '[full path to Dockerfile]'
+    docker run -p 80:5000 --name weather --env-file=.env weather:tag 
 
   Или Вы можете скачать Docker image: 
   
-    docker pull alexandrafedotova/weather 
-    docker run -p 8080:5000 --name weather --env-file=.env alexandrafedotova/weather
+    docker pull alexandrafedotova/weather:tag
+    docker run -p 80:5000 --name weather -e <API_KEY> alexandrafedotova/weather:tag
 
-  Сервис работает на: localhost:8080
+  Сервис работает на: localhost:80
+  Если tag не указан - будет использоваться образ с тэгом latest.
   </p>
-  
-  <h2>Jenkins</h2> 
