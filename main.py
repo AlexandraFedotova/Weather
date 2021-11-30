@@ -11,7 +11,7 @@ api_key = os.environ.get('API_KEY')
 
 @app.route("/")
 def welcome():
-    welcome_page = "<p> The right form of request to the weather-service: /weather?city=&ltcity>&days=&ltn> !</p>"
+    welcome_page = "<p> The right form of request to the weather-service: /weather?city=&ltcity>&days=&ltn> !!</p>"
     return welcome_page
 
 
